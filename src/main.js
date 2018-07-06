@@ -1,12 +1,11 @@
 import Vue from 'vue'
-import app from './app1.vue'
+import App from './components/App.vue'
 import store from './store'
+import './base.css'
 
+// 创建vm对象
 new Vue({
   el: '#app',
-  components: {
-    app,
-  },
-  template: '<app/>',
-  store // 所有组件对象都多了一个$store属性
+  render: h => h(App),
+  store
 })
