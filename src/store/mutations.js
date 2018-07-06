@@ -1,35 +1,24 @@
 import {
-  ADD_TOTO,
-  DELETE_TODO,
-  SELECT_ALL,
-  CLEAR_ALL_COMPLETED,
-  RECEIVE_TODOS
+  REQUESTING,
+  REQ_SUCCESS,
+  REQ_FAIL
 } from './mutation-types'
 
 export default {
-
-  // 添加todo
-  [ADD_TOTO](state, {todo}) {
-    state.todos.unshift(todo)
+  [REQUESTING] (state) {
+    state.firstView = false
+    state.loading = true
+    state.users = []
+    state.errorMsg = ''
   },
 
-  // 删除todo
-  [DELETE_TODO] (state, {index}) {
-    state.todos.splice(index, 1)
+  [REQ_SUCCESS] (state, {users}) {
+    state.loading = false
+    state.users = users
   },
 
-  // 全选/全不选
-  [SELECT_ALL] (state, {check}) {
-    state.todos.forEach(todo => todo.complete = check)
+  [REQ_FAIL] (state) {
+    state.loading = false
+    state.errorMsg = '请求失败'
   },
-
-  // 清除所有已完成的
-  [CLEAR_ALL_COMPLETED] (state) {
-    state.todos = state.todos.filter(todo => !todo.complete)
-  },
-
-  // 接收一个新的todos
-  [RECEIVE_TODOS] (state, {todos}) {
-    state.todos = todos
-  }
 }
